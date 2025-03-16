@@ -8,8 +8,8 @@ public class Domino {
     }
 
     public Domino(int top, int bottom) {
-        this.top = top;
-        this.bottom = bottom;
+        top = this.top;
+        bottom = this.bottom;
     }
 
     public int getTop() {
@@ -45,9 +45,9 @@ public class Domino {
 
     public int compareTo(Domino other) {
         int thisSmallest = Math.min(top, bottom);
-        int otherSmallest = Math.min(top, bottom);
         int thisLargest = Math.max(top, bottom);
-        int otherLargest = Math.max(top, bottom);
+        int otherSmallest = Math.min(other.getTop(), other.getBottom());
+        int otherLargest = Math.max(other.getTop(), other.getBottom());
         if (thisSmallest < otherSmallest) {
             return -1;
         } else if (thisSmallest > otherSmallest) {
@@ -55,36 +55,35 @@ public class Domino {
         } else if (thisSmallest == otherSmallest) {
             if (thisLargest < otherLargest) {
                 return -1;
-            } else if (thisLargest < otherLargest) {
+            } else if (thisLargest > otherLargest) {
                 return 1;
             }
         }
         return 0;
     }
 
-    public int compareToWeight(Domino other){
-        int thisTotalDots = getTop() + getBottom();
-        int otherTotalDots = other.getTop() + other.getBottom();
-        if (thisTotalDots < otherTotalDots){
+    public int compareToWeight(Domino other) {
+        int otherTotal = other.getTop() + other.getBottom();
+        if (top < otherTotal || bottom < otherTotal) {
             return -1;
-        }
-        else if (thisTotalDots > otherTotalDots){
+        } else if (top > otherTotal || bottom > otherTotal) {
             return 1;
-        }
-        else {
+        } else {
             return 0;
         }
     }
 
-    public boolean canConnect(Domino other){
-        int thisTopDots = getTop();
-        int thisBottomDots = getBottom();
-        int otherTopDots = other.getTop();
-        int otherBottomDots = other.getBottom();
-        if (thisTopDots == otherTopDots || thisTopDots == otherBottomDots || thisBottomDots == otherTopDots || thisBottomDots == otherBottomDots){
+
+    public boolean canConnect(Domino other) {
+        if (top == other.getTop()) {
+            return true;
+        } else if (top == other.getBottom()) {
+            return true;
+        } else if (bottom == other.getTop()) {
+            return true;
+        } else if (bottom == other.getBottom()) {
             return true;
         }
         return false;
     }
-
 }

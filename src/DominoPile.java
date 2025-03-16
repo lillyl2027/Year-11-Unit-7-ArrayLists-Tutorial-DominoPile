@@ -1,11 +1,15 @@
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class DominoPile {
-    ArrayList<Domino> pile;
+public class DominoPile{
+    private ArrayList<Domino> pile;
 
-    public DominoPile() {
+    public DominoPile(){
         pile = new ArrayList<>();
+    }
+
+    public ArrayList<Domino> getPile(){
+        return pile;
     }
 
     public void newStack6(){
@@ -16,18 +20,7 @@ public class DominoPile {
         }
     }
 
-    public ArrayList<Domino> getPile(){
-        return pile;
-    }
-
     public void shuffle(){
-        for (int i = 0; i < 50; i++){
-            int x = (int) (Math.random() * (pile.size()));
-            int y = (int) (Math.random() * (pile.size()));
-            Domino otherDomino = pile.get(x);
-            pile.set(x, pile.get(y));
-            pile.set(y, otherDomino);
-        }
+        Collections.shuffle(getPile());
     }
-
 }
